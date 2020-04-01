@@ -11,7 +11,11 @@ exports.add = async (req, res) => {
       // if fields are not empty...
       const fileName = file.path.split('/').slice(-1)[0]; // cut only filename from full path, e.g. C:/test/abc.jpg -> abc.jpg
       const fileExt = fileName.split('.').slice(-1)[0];
-      if (fileExt === 'jpg' || fileExt === 'png' || fileExt === 'gif') {
+      if (
+        (fileExt === 'jpg' || fileExt === 'png' || fileExt === 'gif') &&
+        title.length < 25 &&
+        author.length < 50
+      ) {
         const newPhoto = new Photo({
           title,
           author,

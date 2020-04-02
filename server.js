@@ -23,10 +23,7 @@ app.use(
       event: 'fileBegin', // on every file upload...
       action: (req, res, next, name, file) => {
         const fileName = uniqid() + '.' + file.name.split('.')[1];
-        const fileExt = fileName.split('.').slice(-1)[0];
-        if (fileExt === 'jpg') {
-          file.path = __dirname + '/public/uploads/photo_' + fileName; // ...move the file to public/uploads with unique name
-        }
+        file.path = __dirname + '/public/uploads/photo_' + fileName; // ...move the file to public/uploads with unique name
       }
     }
   ])

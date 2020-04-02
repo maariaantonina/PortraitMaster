@@ -11,10 +11,13 @@ exports.add = async (req, res) => {
       // if fields are not empty...
       const fileName = file.path.split('/').slice(-1)[0]; // cut only filename from full path, e.g. C:/test/abc.jpg -> abc.jpg
       const fileExt = fileName.split('.').slice(-1)[0];
+      const emailPattern = new RegExp(/^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$/);
       if (
         (fileExt === 'jpg' || fileExt === 'png' || fileExt === 'gif') &&
         title.length < 25 &&
-        author.length < 50
+        author.length < 50 &&
+        /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/.test(email) &&
+        !/<\/?[a-z][\s\S]*>/i.test(title)
       ) {
         const newPhoto = new Photo({
           title,
